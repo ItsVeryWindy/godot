@@ -43,7 +43,7 @@
 #endif
 
 #ifdef TESTS_ENABLED
-#include "tests/gdscript_test_runner.h"
+#include "tests/support/gdscript_test_runner.h"
 #endif
 
 #include "core/config/engine.h"

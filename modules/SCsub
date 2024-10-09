@@ -64,7 +64,6 @@ register_module_types = env.CommandNoCache(
 
 
 vs_sources = []
-test_headers = []
 # libmodule_<name>.a for each active module.
 for name, path in env.module_list.items():
     env.modules_sources = []
@@ -77,25 +76,6 @@ for name, path in env.module_list.items():
     env.Prepend(LIBS=[lib])
     if env["vsproj"]:
         vs_sources += env.modules_sources
-
-    if env["tests"]:
-        # Lookup potential headers in `tests` subfolder.
-        import glob
-
-        module_tests = sorted(glob.glob(os.path.join(base_path, "tests", "*.h")))
-        if module_tests != []:
-            test_headers += module_tests
-
-
-# Generate header to be included in `tests/test_main.cpp` to run module-specific tests.
-if env["tests"]:
-
-    def modules_tests_builder(target, source, env):
-        with methods.generated_wrapper(target) as file:
-            for header in source:
-                file.write('#include "{}"\n'.format(os.path.normpath(header.path).replace("\\", "/")))
-
-    env.CommandNoCache("modules_tests.gen.h", test_headers, env.Run(modules_tests_builder))
 
 # libmodules.a with only register_module_types.
 # Must be last so that all libmodule_<name>.a libraries are on the right side

@@ -16,3 +16,7 @@ module_obj = []
 env_noise.add_source_files(module_obj, "*.cpp")
 env_noise.add_source_files(module_obj, "editor/*.cpp")
 env.modules_sources += module_obj
+
+if env["tests"]:
+    env_noise.Append(CPPDEFINES=["TESTS_ENABLED"])
+    env_noise.add_source_files(env.test_sources, "./tests/*.cpp")

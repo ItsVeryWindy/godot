@@ -25,5 +25,9 @@ if env.editor_build:
 
 
 if env["tests"]:
+    if env["disable_exceptions"]:
+        env_gdscript.Append(CPPDEFINES=["DOCTEST_CONFIG_NO_EXCEPTIONS_BUT_WITH_ALL_ASSERTS"])
+
     env_gdscript.Append(CPPDEFINES=["TESTS_ENABLED"])
-    env_gdscript.add_source_files(env.modules_sources, "./tests/*.cpp")
+    env_gdscript.add_source_files(env.modules_sources, "./tests/support/*.cpp")
+    env_gdscript.add_source_files(env.test_sources, "./tests/*.cpp")

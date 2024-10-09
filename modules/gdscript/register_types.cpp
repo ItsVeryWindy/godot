@@ -47,7 +47,7 @@
 #endif // TOOLS_ENABLED
 
 #ifdef TESTS_ENABLED
-#include "tests/test_gdscript.h"
+#include "tests/support/test_gdscript.h"
 #endif
 
 #include "core/io/dir_access.h"
